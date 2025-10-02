@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     try {
       
-      const response = await fetch("http://localhost:8081/api/auth/login", {
+      const response = await fetch("https://ai-resume-screener-y8k8.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const register = async (email: string, password: string) => {
-    const response = await fetch("http://localhost:8081/api/auth/register", {
+    const response = await fetch("https://ai-resume-screener-y8k8.onrender.com/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({  email, password }),

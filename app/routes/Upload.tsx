@@ -59,7 +59,7 @@ const Upload = () => {
         console.log(token);
 
         setStatusText("Analyzing ...")
-        const response = await fetch("http://localhost:8081/api/resume/analyze", {
+        const response = await fetch("https://ai-resume-screener-y8k8.onrender.com/api/resume/analyze", {
             method: "POST",
             headers: { 
                 "Authorization": `Bearer ${token}`

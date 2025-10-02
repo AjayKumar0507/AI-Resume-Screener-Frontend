@@ -31,7 +31,7 @@ export default function Home() {
         try {
 
           const userId = localStorage.getItem("userId");
-          const res = await fetch(`http://localhost:8081/api/resume/user/${userId}/responses`, {
+          const res = await fetch(`https://ai-resume-screener-y8k8.onrender.com/api/resume/user/${userId}/responses`, {
             headers: { 
               "Authorization": `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json"
