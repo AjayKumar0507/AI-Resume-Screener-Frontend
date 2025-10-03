@@ -20,7 +20,8 @@ const Resume = () => {
   
   useEffect(() => {
     if (location.state) {
-      setResume(location.state as ResponseType);
+      const { data } = location.state as { data: ResponseType };
+      setResume(data);
     }
   }, [location.state]);
 
@@ -28,6 +29,7 @@ const Resume = () => {
     if (loading || !isLoggedIn || !resume) return;
 
     const fetchResume = (resumeBytes: string, mimeType: string) => {
+      if(!resumeBytes) return;
       const base64 = resumeBytes.replace(/-/g, '+').replace(/_/g, '/');
 
       const byteChars = atob(base64);
@@ -41,6 +43,7 @@ const Resume = () => {
     };
 
     const fetchImage = (imageBytes: string, mimeType: string) => {
+      if(!imageBytes) return;
       const base64 = imageBytes.replace(/-/g, '+').replace(/_/g, '/');
 
       const byteChars = atob(base64);
