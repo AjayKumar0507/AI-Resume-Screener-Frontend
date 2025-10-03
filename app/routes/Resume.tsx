@@ -17,19 +17,20 @@ const Resume = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [resumeUrl, setResumeUrl] = useState('');
 
-  // ✅ only set resume once from location.state
+  
   useEffect(() => {
     if (location.state) {
       setResume(location.state as ResponseType);
     }
   }, [location.state]);
 
-  // ✅ fetch image/pdf whenever resume is available
   useEffect(() => {
     if (loading || !isLoggedIn || !resume) return;
 
     const fetchResume = (resumeBytes: string, mimeType: string) => {
-      const byteChars = atob(resumeBytes);
+      const base64 = resumeBytes.replace(/-/g, '+').replace(/_/g, '/');
+
+      const byteChars = atob(base64);
       const byteNumbers = new Array(byteChars.length);
       for (let i = 0; i < byteChars.length; i++) {
         byteNumbers[i] = byteChars.charCodeAt(i);
@@ -40,7 +41,9 @@ const Resume = () => {
     };
 
     const fetchImage = (imageBytes: string, mimeType: string) => {
-      const byteChars = atob(imageBytes);
+      const base64 = imageBytes.replace(/-/g, '+').replace(/_/g, '/');
+
+      const byteChars = atob(base64);
       const byteNumbers = new Array(byteChars.length);
       for (let i = 0; i < byteChars.length; i++) {
         byteNumbers[i] = byteChars.charCodeAt(i);
@@ -53,7 +56,7 @@ const Resume = () => {
     fetchImage(resume.image, "image/png");
     fetchResume(resume.resumePdf, "application/pdf");
 
-    // ✅ cleanup object URLs when component unmounts
+    
     return () => {
       if (imageUrl) URL.revokeObjectURL(imageUrl);
       if (resumeUrl) URL.revokeObjectURL(resumeUrl);
@@ -61,7 +64,7 @@ const Resume = () => {
 
   }, [resume, isLoggedIn, loading]);
 
-  // ✅ safe JSON parse
+  
   const feedbackData = (() => {
     if (!resume?.feedback) return null;
     try {

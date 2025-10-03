@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const email = localStorage.getItem("emailId");
 
     if (token && userId && email) {
-      console.log("Token found:", token);
       fetch("http://localhost:8081/api/auth/validate", {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -72,7 +71,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       const data = await response.json();
-      console.log(data);
 
       const jwtToken = data.user.token;
       localStorage.setItem("token", jwtToken);

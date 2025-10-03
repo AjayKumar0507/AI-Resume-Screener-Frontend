@@ -56,7 +56,6 @@ const Upload = () => {
         formData.append("jobDescription", jobDescription);
         
         const token = localStorage.getItem("token");
-        console.log(token);
 
         setStatusText("Analyzing ...")
         const response = await fetch("https://ai-resume-screener-y8k8.onrender.com/api/resume/analyze", {
@@ -72,10 +71,10 @@ const Upload = () => {
         if (!response.ok) {
             throw new Error("AI Analyzing Failed");
         }
-        console.log(response);
+        
         const data = await response.json();
         navigate(`/resume/${1}`,{state: {data}})
-        console.log(data);
+        
     }    
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -89,7 +88,7 @@ const Upload = () => {
         const jobTitle = formData.get('job-title') as string ;
         const jobDescription = formData.get('job-description') as string ;
 
-        console.log({companyName, jobTitle, jobDescription, file})
+        
 
         if(!file) return;
         handleAnalyze({companyName, jobTitle, jobDescription, file});

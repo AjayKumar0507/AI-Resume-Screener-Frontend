@@ -29,6 +29,9 @@ export default function Home() {
 
       const fetchResponses = async () => {
         try {
+          if (isLoggedIn === false) {
+            navigate(`/auth?next=/`);
+          }
 
           const userId = localStorage.getItem("userId");
           const res = await fetch(`https://ai-resume-screener-y8k8.onrender.com/api/resume/user/${userId}/responses`, {
